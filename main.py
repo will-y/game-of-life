@@ -2,6 +2,8 @@ import pygame as pg
 import sys
 import startScreen
 import tileGenerator
+import stepSystem
+import time
 
 class main():
     def __init__(self):
@@ -10,6 +12,8 @@ class main():
         self.currentClick = (0, 0)
         
         self.clock = pg.time.Clock()
+
+        self.stepMode = False
 
     def run(self):
         pg.init()
@@ -25,15 +29,28 @@ class main():
         self.screen.fill(pg.Color('white'))
 
         tileGeneratorInstance = tileGenerator.TileGenerator(self.screen, self.windowWidth, self.windowHeight)
-        tileGeneratorInstance.drawTiles()
+        tileGeneratorInstance.initTileArray()
+        tileGeneratorInstance.drawTiles(tileGeneratorInstance.tileArray)
+
+        stepInstance = stepSystem.Step()
 
         while(True):
-            self.clock.tick(60)
-            
-            click = self.detectClick()
-            tileGeneratorInstance.handleClick(click)
-            self.currentClick = click[1]
-            self.leftClick = click[0]
+            self.clock.tick(10)
+            key = pg.key.get_pressed()
+
+            if(not self.stepMode):
+                click = self.detectClick()
+                tileGeneratorInstance.handleClick(click)
+                self.currentClick = click[1]
+                self.leftClick = click[0]
+            else:
+                stepInstance.step(tileGeneratorInstance)
+                time.sleep(1)
+                self.stepMode = False
+
+            if key[pg.K_RETURN]:
+                self.stepMode = True
+                time.sleep(1)
 
             for event in pg.event.get():
                 if(event.type == pg.QUIT):
