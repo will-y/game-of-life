@@ -2,9 +2,9 @@ import pygame as pg
 import sys
 
 class StartScreen():
-    def __init__(self, width, height):
-        self.width = width
-        self.height = height
+    def __init__(self):
+        self.width = 750
+        self.height = 750
 
         self.startScreen = pg.display.set_mode((self.width, self.height))
         pg.display.set_caption("Game of Life")
@@ -26,7 +26,7 @@ class StartScreen():
         self.gameOfLifeRules2_2 = self.subFont.render("to the next generation.", 1, pg.Color('black'))
         self.gameOfLifeRules3 = self.subFont.render("3. Any live (green) cell with more than three live neighbours dies,", 1, pg.Color('black'))
         self.gameOfLifeRules3_2 = self.subFont.render("as if by overpopulation.", 1, pg.Color('black'))
-        self.gameOfLifeRules4 = self.subFont.render("4. Any dead (white) cell with exactly three live neighbours becomes", 1, pg.Color('black'))
+        self.gameOfLifeRules4 = self.subFont.render("4. Any dead (black) cell with exactly three live neighbours becomes", 1, pg.Color('black'))
         self.gameOfLifeRules4_2 = self.subFont.render("a live cell, as if by reproduction.", 1, pg.Color('black'))
 
     def launchScreen(self):
