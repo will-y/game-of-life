@@ -4,6 +4,7 @@ import startScreen
 import tileGenerator
 import stepSystem
 import time
+import drawButtons
 
 class main():
     def __init__(self):
@@ -11,7 +12,7 @@ class main():
         self.windowHeight = 1000
         self.currentClick = (0, 0)
 
-        self.toolBarWidth = 300
+        self.sideBarWidth = 300
         
         self.clock = pg.time.Clock()
 
@@ -24,7 +25,7 @@ class main():
         startScreenInstance = startScreen.StartScreen()
         startScreenInstance.launchScreen()
         
-        self.screen = pg.display.set_mode((self.windowWidth + self.toolBarWidth, self.windowHeight))
+        self.screen = pg.display.set_mode((self.windowWidth + self.sideBarWidth, self.windowHeight))
         pg.display.set_caption("Game of Life")
         self.background = pg.Surface(self.screen.get_size())
         self.background = self.background.convert()
@@ -34,7 +35,16 @@ class main():
         tileGeneratorInstance.initTileArray()
         tileGeneratorInstance.drawTiles(tileGeneratorInstance.tileArray)
 
+        print((self.screen, self.windowWidth, self.windowHeight, self.sideBarWidth))
+        sys.stdout.flush()
+
+        drawer = drawButtons.Draw(self.screen, self.windowWidth, self.windowHeight, self.sideBarWidth)
+        
+        drawer.draw_toolbar(200)
+
         stepInstance = stepSystem.Step()
+
+        
 
         while(True):
             self.clock.tick(60)
@@ -56,7 +66,8 @@ class main():
             for event in pg.event.get():
                 if(event.type == pg.QUIT):
                     sys.exit()
-
+            
+            
             pg.display.update()
 
     def detectClick(self):
