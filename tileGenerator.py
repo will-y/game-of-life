@@ -9,6 +9,7 @@ class TileGenerator():
         self.tileNumY = int(screenSizeY / self.tileSize)
         self.screen = screen
         self.tileArray = []
+        self.screenX = screenSizeX
 
     def drawTiles(self, array):
         for i in range(self.tileNumX):
@@ -29,12 +30,13 @@ class TileGenerator():
 
     def handleClick(self, click):
         pos = self.turnToTileCoords(click[1])
-        if(click[0] and not click[1] == (-1, -1)):
-            self.turnTileAlive(pos)
-            self.tileArray[pos[0]][pos[1]] = True
-        elif(not click[1] == (-1, -1)):
-            self.turnTileDead(pos)
-            self.tileArray[pos[0]][pos[1]] = False
+        if(click[1][0] < self.screenX):
+            if(click[0] and not click[1] == (-1, -1)):
+                self.turnTileAlive(pos)
+                self.tileArray[pos[0]][pos[1]] = True
+            elif(not click[1] == (-1, -1)):
+                self.turnTileDead(pos)
+                self.tileArray[pos[0]][pos[1]] = False
 
     def turnToTileCoords(self, point):
         return int(point[0] / self.tileSize), int(point[1] / self.tileSize)

@@ -10,6 +10,8 @@ class main():
         self.windowWidth = 1000
         self.windowHeight = 1000
         self.currentClick = (0, 0)
+
+        self.toolBarWidth = 300
         
         self.clock = pg.time.Clock()
 
@@ -22,7 +24,7 @@ class main():
         startScreenInstance = startScreen.StartScreen()
         startScreenInstance.launchScreen()
         
-        self.screen = pg.display.set_mode((self.windowWidth, self.windowHeight))
+        self.screen = pg.display.set_mode((self.windowWidth + self.toolBarWidth, self.windowHeight))
         pg.display.set_caption("Game of Life")
         self.background = pg.Surface(self.screen.get_size())
         self.background = self.background.convert()
@@ -35,7 +37,7 @@ class main():
         stepInstance = stepSystem.Step()
 
         while(True):
-            self.clock.tick(10)
+            self.clock.tick(60)
             key = pg.key.get_pressed()
 
             if(not self.stepMode):
@@ -46,11 +48,10 @@ class main():
             else:
                 stepInstance.step(tileGeneratorInstance)
                 time.sleep(1)
-                self.stepMode = False
 
             if key[pg.K_RETURN]:
                 self.stepMode = True
-                time.sleep(1)
+                time.sleep(.5)
 
             for event in pg.event.get():
                 if(event.type == pg.QUIT):

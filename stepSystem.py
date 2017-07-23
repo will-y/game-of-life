@@ -67,9 +67,7 @@ class Step():
 
 
     def checkExists(self, pos):
-        if(pos[0] >= self.tilesX):
-            return False
-        elif(pos[1] >= self.tilesY):
+        if(pos[0] >= self.tilesX or pos[1] >= self.tilesY or pos[0] < 0 or pos[1] < 0):
             return False
         else:
             return True
