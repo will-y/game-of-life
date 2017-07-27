@@ -5,6 +5,7 @@ import tileGenerator
 import stepSystem
 import time
 import drawButtons
+import bulletList
 
 class main():
     def __init__(self):
@@ -42,6 +43,11 @@ class main():
         
         drawer.draw_toolbar(200)
 
+        drawer.draw_textbox(100)
+
+        sizeList = bulletList.BulletList(self.screen, (1100, 100), 5, "List", ["Option1", "Option2", "Option3", "Option4", "Option5"])
+
+        sizeList.drawList()
         stepInstance = stepSystem.Step()
 
         
@@ -63,10 +69,10 @@ class main():
                 self.stepMode = True
                 time.sleep(.5)
 
-            for event in pg.event.get():
+            events = pg.event.get()
+            for event in events:
                 if(event.type == pg.QUIT):
                     sys.exit()
-            
             
             pg.display.update()
 

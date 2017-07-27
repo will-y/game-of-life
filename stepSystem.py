@@ -8,7 +8,9 @@ class Step():
         self.tileInstance = tileInstance
         self.tilesX = len(self.tileInstance.tileArray)
         self.tilesY = len(self.tileInstance.tileArray[0])
+
         self.createNewArray()
+
         for i in range(self.tilesX):
             for j in range(self.tilesY):
                 borders = self.checkBorders((i, j))
@@ -26,7 +28,6 @@ class Step():
                         self.newArray[i][j] = False
 
         self.tileInstance.drawTiles(self.newArray)
-
 
     def checkBorders(self, pos):
         borderCount = 0
